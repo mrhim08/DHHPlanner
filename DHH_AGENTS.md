@@ -14,7 +14,7 @@ fork-owned: upstream never touches it, so keep fork knowledge here, not in `CLAU
 | MSI UpgradeCode | own GUID, never reuse upstream's | `wix/Program.cs` |
 | Exe name | still `MissionPlanner.exe` (on purpose: fewer upstream conflicts; Updater depends on it) | — |
 | Default theme | `DHH.mpsystheme` (palette is a placeholder until the official brand colours arrive) | repo root, `MainV2.cs`, `Utilities/ThemeManager.cs` |
-| App self-update | GitHub Releases of `dhh-rclab/DHHPlanner` (org name is a placeholder) | `app.config` `UpdateLocation*` keys, `Utilities/Update.cs` |
+| App self-update | GitHub Releases of `mrhim08/DHHPlanner` | `app.config` `UpdateLocation*` keys, `Utilities/Update.cs` |
 
 DHHPlanner keeps its settings separate from stock Mission Planner on purpose, so both can be
 installed side by side. Do not add a settings migration from "Mission Planner".
@@ -58,7 +58,7 @@ the application self-update keys point at DHH.
 - `MainV2.cs` Windows XP branch still sets update URLs to `firmware.ardupilot.org/MissionPlanner/xp/`.
 - The tlog thumbnail shell handler (CLSID in `wix/Program.cs`, cache in
   `ProgramData\Mission Planner\tlogimagecache`) is shared with stock Mission Planner.
-- Icons, splash image and brand colours are still upstream/placeholder; GitHub org `dhh-rclab` is a placeholder.
+- Icons, splash image and brand colours are still upstream/placeholder.
 
 ## CHANGES.md
 `CHANGES.md` is the user-facing summary of what DHHPlanner adds over upstream, describing how it
