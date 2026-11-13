@@ -344,10 +344,12 @@ namespace DHH.Planner
         {
             var g = new GroupBox();
             g.Text = title;
-            g.Width = 580;
             g.AutoSize = true;
             g.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            g.MinimumSize = new Size(560, 0);
             g.Margin = new Padding(4, 4, 4, 8);
+            // noi dung khong dock (dock + AutoSize lam GroupBox co ve 0): dat vao vung hien thi cua khung
+            g.ControlAdded += (s, e) => { e.Control.Location = new Point(g.DisplayRectangle.X, g.DisplayRectangle.Y); };
             return g;
         }
 
@@ -358,7 +360,8 @@ namespace DHH.Planner
             f.WrapContents = dir == FlowDirection.LeftToRight;
             f.AutoSize = true;
             f.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            f.Dock = DockStyle.Top;
+            f.Dock = DockStyle.None;
+            if (f.WrapContents) f.MaximumSize = new Size(550, 0);   // can be rong toi da de nut xuong dong
             return f;
         }
 

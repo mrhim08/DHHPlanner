@@ -2,8 +2,8 @@
   "schema": 1,
   "id": "ecobra",
   "name": "eCobra",
-  "description": "VTOL QuadPlane, sai canh 2.6 m, AUW ~12 kg (payload 2 kg)",
-  "status": "DRAFT - gia tri chua duoc doi thiet ke xac nhan, KHONG dung de bay that",
+  "description": "VTOL QuadPlane, sải cánh 2.6 m, AUW ~12 kg (payload 2 kg)",
+  "status": "DRAFT - giá trị chưa được đội thiết kế xác nhận, KHÔNG dùng để bay thật",
   "match": {
     "firmware": "ArduPlane",
     "requireParams": { "Q_ENABLE": 1 }
