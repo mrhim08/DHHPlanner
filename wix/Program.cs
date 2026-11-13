@@ -280,7 +280,7 @@ namespace wix
     <DirectoryRef Id=""ApplicationProgramsFolder"">
         <Component Id=""ApplicationShortcut"" Guid=""*"">
             <Shortcut Id=""ApplicationStartMenuShortcut10"" Name=""DHHPlanner"" Description=""DHHPlanner"" Target=""[INSTALLDIR]MissionPlanner.exe"" WorkingDirectory=""INSTALLDIR"" />
-            <Shortcut Id=""UninstallProduct"" Name=""Uninstall DHHPlanner"" Description=""Uninstalls My Application"" Target=""[System64Folder]msiexec.exe"" Arguments=""/x [ProductCode]"" />
+            <Shortcut Id=""UninstallProduct"" Name=""Uninstall DHHPlanner"" Description=""Uninstalls DHHPlanner"" Target=""[System64Folder]msiexec.exe"" Arguments=""/x [ProductCode]"" />
             <RegistryValue Root=""HKCU"" Key=""Software\DHHRCLab\DHHPlanner"" Name=""installed"" Type=""integer"" Value=""1"" KeyPath=""yes"" />
 
             <RemoveFolder Id=""dltApplicationProgramsFolder"" Directory=""ApplicationProgramsFolder"" On=""uninstall"" />

@@ -78,7 +78,10 @@ the application self-update keys point at DHH.
   map icons are upstream's generic images (`Resources/planetracker.png`, `quad2.png`) drawn by Titan's marker code;
   check the size looks right. Titan's tab icons and `Resources/acc_*.png` calibration pictures are Titan-made art
   (the PNGs carry a Titan developer's local file path in their metadata); replace them when DHH has its own.
-- Titan's `TitanDynamics.mpsystheme` is still shipped as a selectable theme (not default).
+- ADS-B: `API_CONTACT` in `ExtLibs/Utilities/adsb.cs` is a placeholder (`dhhplanner@users.noreply.github.com`); set a monitored address.
+- Splash form has no window icon (`$this.Icon` resource dropped with the logo swap; harmless). Main-menu logo click still opens ardupilot.org.
+- File associations `.tlog`/`.log`/`.dfbin`: whichever of DHHPlanner / Mission Planner / TitanPlanner is installed last owns them.
+- Android/linux/mac workflows only run or publish in the ArduPilot repository.
 
 ## CHANGES.md
 `CHANGES.md` is the user-facing summary of what DHHPlanner adds over upstream, describing how it
