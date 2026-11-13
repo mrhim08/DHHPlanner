@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Release notes for the releases main.yml publishes, measured from the last
-# TitanPlanner-* release. The fork's own commits are listed first; the
+# DHHPlanner-* release. The fork's own commits are listed first; the
 # ArduPilot/MissionPlanner commits brought in by upstream syncs follow in a
 # collapsed section.
 #
@@ -10,7 +10,7 @@
 #                notes read as the next release's would. That release need not
 #                be an ancestor: master can carry commits development lacks,
 #                such as README edits made on GitHub.
-#   master       since the newest TitanPlanner-* tag that is an ancestor of HEAD,
+#   master       since the newest DHHPlanner-* tag that is an ancestor of HEAD,
 #                skipping a tag on HEAD itself (a re-run of a released commit)
 #
 # notes.md is the GitHub release body; ChangeLog.txt is the plain-text copy the
@@ -22,7 +22,7 @@ set -euo pipefail
 channel=${1:?usage: release-notes.sh <development|master> [notes.md] [ChangeLog.txt]}
 md_out=${2:-}
 txt_out=${3:-}
-repo_url=${REPO_URL:-${GITHUB_SERVER_URL:-https://github.com}/${GITHUB_REPOSITORY:-Titan-Dynamics/TitanPlanner}}
+repo_url=${REPO_URL:-${GITHUB_SERVER_URL:-https://github.com}/${GITHUB_REPOSITORY:-mrhim08/DHHPlanner}}
 upstream_ref=${UPSTREAM_REF:-upstream/master}
 upstream_slug=${UPSTREAM_SLUG:-ArduPilot/MissionPlanner}
 title=${RELEASE_TITLE:-}
@@ -42,11 +42,11 @@ since() {
 
 case $channel in
   development)
-    tag=$(git tag -l 'TitanPlanner-*' --sort=-v:refname | head -n 1)
+    tag=$(git tag -l 'DHHPlanner-*' --sort=-v:refname | head -n 1)
     [ -z "$tag" ] || since "$tag"
     ;;
   master)
-    for tag in $(git tag -l 'TitanPlanner-*' --sort=-v:refname); do
+    for tag in $(git tag -l 'DHHPlanner-*' --sort=-v:refname); do
       commit=$(git rev-parse "$tag^{commit}")
       if [ "$commit" != "$head" ] && git merge-base --is-ancestor "$commit" "$head"; then
         since "$tag"
@@ -120,7 +120,7 @@ if [ -n "$md_out" ]; then exec 3>"$md_out"; else exec 3>&1; fi
 {
   echo "$intro_md"
   if [ ${#fork[@]} -gt 0 ]; then
-    printf '\n### TitanPlanner\n\n'
+    printf '\n### DHHPlanner\n\n'
     list md "${fork[@]}" | md_escape
   fi
   if [ ${#upstream[@]} -gt 0 ]; then
@@ -140,7 +140,7 @@ if [ -n "$md_out" ]; then exec 3>"$md_out"; else exec 3>&1; fi
   [ -n "$title" ] && printf '%s\n\n' "$title"
   echo "$intro_txt"
   if [ ${#fork[@]} -gt 0 ]; then
-    printf '\nTitanPlanner\n'
+    printf '\nDHHPlanner\n'
     list txt "${fork[@]}"
   fi
   if [ ${#upstream[@]} -gt 0 ]; then

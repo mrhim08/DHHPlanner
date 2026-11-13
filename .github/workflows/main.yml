@@ -21,8 +21,8 @@ jobs:
     env:
       IS_DEV: ${{ github.ref == 'refs/heads/development' }}
       IS_MASTER: ${{ github.ref == 'refs/heads/master' }}
-      MSI_NAME: TitanPlanner-Installer.msi
-      ZIP_NAME: TitanPlanner.zip
+      MSI_NAME: DHHPlanner-Installer.msi
+      ZIP_NAME: DHHPlanner.zip
 
     steps:
       - uses: actions/checkout@v4
@@ -103,10 +103,10 @@ jobs:
           mkdir notes
           if [ "$IS_DEV" = true ]; then
             channel=development
-            export RELEASE_TITLE="TitanPlanner $VERSION (development build)"
+            export RELEASE_TITLE="DHHPlanner $VERSION (development build)"
           else
             channel=master
-            export RELEASE_TITLE="TitanPlanner $VERSION"
+            export RELEASE_TITLE="DHHPlanner $VERSION"
           fi
           bash .github/scripts/release-notes.sh "$channel" notes/release-notes.md notes/ChangeLog.txt
           cat notes/release-notes.md >> "$GITHUB_STEP_SUMMARY"
@@ -133,7 +133,7 @@ jobs:
           GH_REPO: ${{ github.repository }}
           VERSION: ${{ steps.version.outputs.VERSION }}
         run: |
-          gh release create "TitanPlanner-$VERSION" --target "$GITHUB_SHA" --latest --title "TitanPlanner $VERSION" \
+          gh release create "DHHPlanner-$VERSION" --target "$GITHUB_SHA" --latest --title "DHHPlanner $VERSION" \
             --notes-file notes/release-notes.md \
             "$ZIP_NAME" "$MSI_NAME" checksums.txt version.txt notes/ChangeLog.txt
 

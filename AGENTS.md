@@ -39,10 +39,10 @@ single most important thing to understand before touching shared code.
 
 GitHub Actions (`.github/workflows/main.yml` = "DotNet Build", plus `android.yml`, `linux.yml`,
 `mac.yml`). `main.yml` builds the solution on Windows, runs the `Sysid32Tests`, packages an MSI
-and `TitanPlanner.zip` with `checksums.txt` / `version.txt`, and publishes a `development-build`
-prerelease on pushes to `development` and a `TitanPlanner-<version>` release on pushes to
+and `DHHPlanner.zip` with `checksums.txt` / `version.txt`, and publishes a `development-build`
+prerelease on pushes to `development` and a `DHHPlanner-<version>` release on pushes to
 `master`; the in-app updater reads those. Release notes (body and the `ChangeLog.txt` asset) come
-from `.github/scripts/release-notes.sh`: every commit since the last `TitanPlanner-*` release (for
+from `.github/scripts/release-notes.sh`: every commit since the last `DHHPlanner-*` release (for
 the development build, what it has that the newest release doesn't), fork commits separated from
 upstream's. The Linux/macOS workflows build but only publish
 releases when running in the upstream ArduPilot repository.
@@ -132,9 +132,9 @@ The solution has ~93 projects; treat `ExtLibs/` as the bulk of the real function
   don't treat those as actionable warnings.
 - **`Resources/`** holds icons/images; themes are `*.mpsystheme` files driven by `ThemeManager.cs`.
 
-## TitanPlanner fork notes
+## Fork notes (inherited from TitanPlanner; DHH-specific rules are in `DHH_AGENTS.md`)
 
-This repository is the Titan Dynamics fork of Mission Planner. `CHANGES.md` is the feature-level
+This repository is DHHPlanner, based on the Titan Dynamics fork (TitanPlanner) of Mission Planner. `CHANGES.md` is the feature-level
 summary of everything the fork adds over upstream; update it (and `README.md` if user-facing)
 whenever a change lands. It is not a changelog: it describes what the fork does differently today,
 in short user-facing lines, so a reader can quickly see the major features and fixes. Leave out root
@@ -157,12 +157,11 @@ the git log has those. `ChangeLog.txt` is upstream's and is not maintained here.
   keep its `obj\` / `obj2\` excludes or the Xamarin-generated `FirmwareSelection.xaml.g.cs` is
   compiled twice. Keep `GenerateResourceUsePreserializedResources` on, or `dotnet build`/`dotnet test`
   fail. Both `plugins\` and `Plugins\` exist on disk; the csproj excludes both.
-- **Product identity and data folders.** The app is "TitanPlanner": its own MSI upgrade code and install
+- **Product identity and data folders.** The app is "DHHPlanner": its own MSI upgrade code and install
   folder (`wix/Program.cs`) and its own data folders via `Settings.AppConfigName` (`app.config` for the
-  log files). On first launch
-  `DataFolderMigration` copies the previous folders (`Settings.PreviousAppConfigNames`, "Mission
-  Planner") into the new ones. The NextVision edition sets these to "TitanPlanner-NextVision" and
-  `{ "TitanPlanner", "Mission Planner" }`, so those lines differ between the two repos by design.
+  log files). `DataFolderMigration` copies earlier folders listed in `Settings.PreviousAppConfigNames`,
+  which is deliberately empty here (side-by-side install, no import of Mission Planner or TitanPlanner
+  settings). See `DHH_AGENTS.md` for the identity table.
 - **3D map.** `Controls/Map3D/` is the 3D view (excluded from the LIB build). `Terrain/` streams satellite
   terrain: `TerrainQuadtree` picks tiles by screen-space error, up to a finest zoom set by the camera's height
   (`SelectionParams.MaxZoomFor`), `TileLoader` fetches imagery (through the shared GMap cache), samples SRTM
