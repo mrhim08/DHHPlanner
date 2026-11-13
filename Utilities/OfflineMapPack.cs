@@ -36,7 +36,8 @@ namespace MissionPlanner.Utilities
         public const string FileFilter = "Offline map pack (*.mappack)|*.mappack|All files (*.*)|*.*";
 
         private const string ManifestName = "manifest.json";
-        private const string FormatTag = "TitanPlanner.OfflineMapPack";
+        // written to new packs; the reader does not check it, so packs written by TitanPlanner ("TitanPlanner.OfflineMapPack") still load
+        private const string FormatTag = "DHHPlanner.OfflineMapPack";
         private const int FormatVersion = 1;
 
         // tiles/{provider}/{zoom}/{y}/{x}.{ext}; the provider segment may not contain path separators
@@ -458,7 +459,7 @@ namespace MissionPlanner.Utilities
 
                     var manifest = new Manifest
                     {
-                        Application = "TitanPlanner " + Assembly.GetEntryAssembly()?.GetName().Version,
+                        Application = "DHHPlanner " + Assembly.GetEntryAssembly()?.GetName().Version,
                         Created = DateTime.Now,
                         TileCount = done,
                         Regions = regions.Select(r => r.Clone()).ToList()

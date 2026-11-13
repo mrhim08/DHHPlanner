@@ -1,9 +1,10 @@
 # DHH_AGENTS.md
 
 Fork-specific instructions for coding agents (Claude Code, Codex, ...) working on **DHHPlanner**,
-DHH RC Lab's fork of ArduPilot Mission Planner. Read `CLAUDE.md` first for the upstream codebase
+DHH RC Lab's product built on TitanPlanner (Titan Dynamics), which is a fork of ArduPilot Mission Planner
+(chain: ArduPilot -> Titan -> DHHPlanner). Read `AGENTS.md` first (it is Titan's, inherited) for the codebase
 (build, architecture, the `#if !LIB` trap, WinForms triplets, localisation). This file is
-fork-owned: upstream never touches it, so keep fork knowledge here, not in `CLAUDE.md`.
+DHH-owned: neither Titan nor upstream touches it, so keep fork knowledge here, not in `CLAUDE.md`.
 
 ## Product identity
 
@@ -15,9 +16,17 @@ fork-owned: upstream never touches it, so keep fork knowledge here, not in `CLAU
 | Exe name | still `MissionPlanner.exe` (on purpose: fewer upstream conflicts; Updater depends on it) | — |
 | Default theme | `DHH.mpsystheme` (palette is a placeholder until the official brand colours arrive) | repo root, `MainV2.cs`, `Utilities/ThemeManager.cs` |
 | App self-update | GitHub Releases of `mrhim08/DHHPlanner` | `app.config` `UpdateLocation*` keys, `Utilities/Update.cs` |
+| First-run defaults | `HandleDhhEditionUpgrade()` runs once (setting `dhh_edition`): DHH theme and the Params/Video/Tuning/Inspector tabs shown | `Program.cs` |
+| Splash | `dhh_logo.png` (1920x1200 placeholder, embedded in `Splash.resx` as `dhhLogo.Image`); "Version: DHH x.y" | `Splash.cs`, `Splash.Designer.cs`, `Splash.resx` |
+| Network identity | ADS-B User-Agent `DHHPlanner` plus placeholder contact `dhhplanner@users.noreply.github.com` (adsb.lol wants contact info; replace with a monitored address) | `ExtLibs/Utilities/adsb.cs` |
+| Offline map pack | writes tag `DHHPlanner.OfflineMapPack`; the reader does not check the tag, so Titan packs load | `Utilities/OfflineMapPack.cs` |
+| Credits | Michael Oborne copyright kept; no Titan personal credits in assembly metadata (`HUD.cs` header still says "Modified by Mohammad Adib": GPL notice, keep) | `Properties/AssemblyInfo.cs` |
 
 DHHPlanner keeps its settings separate from stock Mission Planner on purpose, so both can be
-installed side by side. Do not add a settings migration from "Mission Planner".
+installed side by side. Do not add a settings migration from "Mission Planner" or TitanPlanner:
+`Settings.PreviousAppConfigNames` (Titan's `DataFolderMigration` mechanism) stays empty. The MSI only
+upgrades/removes DHHPlanner (own UpgradeCode); Titan's `KeepStockMissionPlanner` / old-Titan-removal
+upgrade logic was removed from `wix/Program.cs` on purpose.
 
 Vehicle-firmware and parameter-metadata downloads must keep pointing at ArduPilot servers. Only
 the application self-update keys point at DHH.
@@ -39,26 +48,37 @@ the application self-update keys point at DHH.
   plugin can never crash the app.
 
 ## Upstream sync
-- Remote `upstream` = `ArduPilot/MissionPlanner`; work on `development`.
-- Merge `upstream/master` into `development` regularly. On conflict keep the fork's identity and
-  UI changes, take upstream's fixes. Re-check every row of "Product identity" afterwards.
-- Keep fork changes in new files (`DHH/`) and hook into upstream files with as few lines as
-  possible; `GCSViews/FlightData.cs` and `MainV2.cs` are the main conflict hot spots (in
-  TitanPlanner's history they were touched by 110 and 40 fork commits).
+- Remotes: `titan` = `Titan-Dynamics/TitanPlanner`, `upstream` = `ArduPilot/MissionPlanner`; work on `development`.
+- Normal flow: merge `titan/development` into `development` (Titan merges ArduPilot regularly, so this brings
+  both). Merge `upstream/master` directly only when an ArduPilot fix is needed before Titan has it.
+- Conflict rule: **DHH identity, Titan UI, upstream fixes.** Keep DHH's name/GUIDs/URLs/theme/logos, keep
+  Titan's UI and features, take upstream's fixes. Re-check every row of "Product identity" afterwards, and
+  re-run `git grep -n -i -E "titan|titanuas|titandynamics"` for identity that crept back in (Titan's logos,
+  `titandynamics.aero` links, `TitanPlanner-*` release names, Tornado/Proton icons, its contact address).
+- Keep DHH changes in new files (`DHH/`) and hook into Titan/upstream files with as few lines as possible;
+  `GCSViews/FlightData.cs` and `MainV2.cs` are the main conflict hot spots.
 - Preserve each file's existing line endings and BOM; never reformat whole upstream files.
 
 ## Known gaps (to do before the first release)
-- Release zip: the 7z command in `wix/Program.cs` excludes `*.param`, so `dhh-aircraft/**/params/*.param`
-  would be dropped from the zip (the MSI includes it). Fix when the CI packaging is reworked.
-- CI `.github/workflows/main.yml` still produces upstream artifact names (`MissionPlannerBeta.zip`);
-  it must publish `DHHPlanner.zip`, `version.txt` and `checksums.txt` to the GitHub release the
-  `app.config` update keys point at.
+- Release packaging: the CI zip (`7z a ... *`) and the MSI (`wix/Program.cs`) now include
+  `dhh-aircraft/**/params/*.param`; the legacy `create.bat` 7z line re-adds `dhh-aircraft` after its `*.param`
+  exclusion. Not yet exercised on a real CI run.
+- `.github/workflows/main.yml` publishes `DHHPlanner.zip`, `DHHPlanner-Installer.msi`, `version.txt`, `checksums.txt`
+  to `development-build` (push to `development`) and `DHHPlanner-<version>` (push to `master`) of
+  `mrhim08/DHHPlanner`; untested until the first run. Release notes list all non-ArduPilot commits (including
+  Titan's) as DHHPlanner's; add a `titan` split in `.github/scripts/release-notes.sh` if that gets noisy.
+  Linux/mac/android workflows only publish in the ArduPilot repository.
 - `ExtLibs/Installer` (web installer project) still downloads and installs stock Mission Planner;
   do not ship it until it is re-pointed.
 - `MainV2.cs` Windows XP branch still sets update URLs to `firmware.ardupilot.org/MissionPlanner/xp/`.
 - The tlog thumbnail shell handler (CLSID in `wix/Program.cs`, cache in
   `ProgramData\Mission Planner\tlogimagecache`) is shared with stock Mission Planner.
-- Icons, splash image and brand colours are still upstream/placeholder.
+- Branding is still placeholder: app icon (`mpdesktop.ico`, `mpdesktop44/150.png`) is upstream's ArduPilot icon,
+  main-menu logo is upstream's, splash is a generated text PNG, theme colours are placeholders. Plane/copter
+  map icons are upstream's generic images (`Resources/planetracker.png`, `quad2.png`) drawn by Titan's marker code;
+  check the size looks right. Titan's tab icons and `Resources/acc_*.png` calibration pictures are Titan-made art
+  (the PNGs carry a Titan developer's local file path in their metadata); replace them when DHH has its own.
+- Titan's `TitanDynamics.mpsystheme` is still shipped as a selectable theme (not default).
 
 ## CHANGES.md
 `CHANGES.md` is the user-facing summary of what DHHPlanner adds over upstream, describing how it

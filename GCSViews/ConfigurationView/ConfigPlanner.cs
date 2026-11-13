@@ -406,7 +406,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         {
             try
             {
-                Process.Start(new ProcessStartInfo("https://github.com/Titan-Dynamics/TitanPlanner/releases")
+                Process.Start(new ProcessStartInfo("https://github.com/mrhim08/DHHPlanner/releases")
                 {
                     UseShellExecute = true
                 });

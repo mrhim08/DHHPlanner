@@ -148,7 +148,7 @@ namespace MissionPlanner.Utilities
         /// </summary>
         public static List<Version> GetReleaseVersions()
         {
-            // the repo the update URLs point at, e.g. https://github.com/Titan-Dynamics/TitanPlanner/releases/...
+            // the repo the update URLs point at, e.g. https://github.com/mrhim08/DHHPlanner/releases/...
             var match = Regex.Match(ConfigurationManager.AppSettings["UpdateLocation"] ?? "",
                 @"github\.com/([^/]+/[^/]+)/releases", RegexOptions.IgnoreCase);
             if (!match.Success)

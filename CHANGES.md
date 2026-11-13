@@ -16,6 +16,12 @@ can sit beside it.
 ## DHH theme
 `DHH.mpsystheme` is the default theme for new installs.
 
+## Logos and icons
+Splash image is a DHHPlanner placeholder; the application icon and main-menu logo are the stock ArduPilot ones until DHH has a logo of its own. Plane and copter map icons are the generic ones (TitanPlanner's Tornado/Proton are not used).
+
+## Updates and installer
+The in-app updater reads GitHub Releases of `mrhim08/DHHPlanner` (`development-build`, `DHHPlanner-<version>`). The installer only ever upgrades DHHPlanner; it never touches an installed Mission Planner or TitanPlanner, and no settings are imported from either.
+
 ---
 
 # DHH Panel
@@ -52,7 +58,7 @@ A new bundled theme (`titandynamics.mpsystheme`) is set as the default for new i
 Native Windows title bars now follow the application theme rather than always being light.
 
 ## New Application Icon, Splash, and Tab Icons
-A new app icon (Titan Dynamics branding), redesigned splash screen, and a fresh icon set for the main top-level tabs in both dark and light variants.
+A new app icon (Titan Dynamics branding, not used by DHHPlanner), redesigned splash screen, and a fresh icon set for the main top-level tabs in both dark and light variants.
 
 ## Plane & Copter Default Icons
 Tornado and Proton aircraft are the default rendered icons for plane and copter vehicle classes. Users can also drop in a custom aircraft icon image to override per-vehicle defaults entirely.

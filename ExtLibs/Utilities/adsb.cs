@@ -108,7 +108,7 @@ namespace MissionPlanner.Utilities
         /// <summary>
         /// adsb.lol asks API clients to put contact info in their User-Agent and rejects generic ones.
         /// </summary>
-        private const string API_CONTACT = "contact@titanuas.com";
+        private const string API_CONTACT = "dhhplanner@users.noreply.github.com";
 
         public adsb()
         {
@@ -198,7 +198,7 @@ namespace MissionPlanner.Utilities
                         int interval;
                         ApiFor(server, out url, out interval);
                         var delay = interval;
-                        var userAgent = (Settings.Instance.UserAgent ?? "TitanPlanner") + " (contact: " + API_CONTACT + ")";
+                        var userAgent = (Settings.Instance.UserAgent ?? "DHHPlanner") + " (contact: " + API_CONTACT + ")";
 
                         while (true)
                         {
