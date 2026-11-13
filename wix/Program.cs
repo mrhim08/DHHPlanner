@@ -87,9 +87,9 @@ namespace wix
 
             header(fvi.ProductVersion);
 
-            sw.WriteLine("    <Directory Id=\"INSTALLDIR\" Name=\"TitanPlanner\">");
+            sw.WriteLine("    <Directory Id=\"INSTALLDIR\" Name=\"DHHPlanner\">");
 
-            sw.WriteLine(@"        <Component Id=""InstallDirPermissions"" Guid=""{7D9B98EF-3079-4352-A41F-8DEB20B01B10}"" KeyPath=""yes""> 
+            sw.WriteLine(@"        <Component Id=""InstallDirPermissions"" Guid=""{0BFE7414-2C01-4702-8437-8F20C5F4C476}"" KeyPath=""yes""> 
             <CreateFolder> 
                 <Permission User=""Everyone"" GenericAll=""yes"" /> 
             </CreateFolder>
@@ -117,6 +117,9 @@ namespace wix
             st.WriteLine("pause");
 
             st.WriteLine(@"""C:\Program Files\7-Zip\7z.exe"" a -tzip -xr!beta.bat -xr!cameras.xml -xr!firmware.hex -xr!*.zip -xr!stats.xml -xr!*.bin -xr!*.xyz -xr!*.sqlite -xr!*.dxf -xr!*.zip -xr!*.h -xr!*.param -xr!ParameterMetaData.xml -xr!translation -xr!mavelous_web -xr!stats.xml -xr!driver -xr!*.etag -xr!srtm -xr!*.rlog -xr!*.zip -xr!*.tlog -xr!config.xml -xr!gmapcache -xr!eeprom.bin -xr!dataflash.bin -xr!*.new -xr!*.log -xr!ArdupilotPlanner.log* -xr!cameras.xml -xr!firmware.hex -xr!*.zip -xr!stats.xml -xr!ParameterMetaData.xml -xr!*.etag -xr!*.rlog -xr!*.tlog -xr!config.xml -xr!gmapcache -xr!eeprom.bin -xr!dataflash.bin -xr!*.new " + fn + @".zip " + path + "*");
+
+            // the exclusions above drop *.param (user-saved files); add the shipped aircraft profiles back
+            st.WriteLine(@"""C:\Program Files\7-Zip\7z.exe"" a -tzip " + fn + @".zip " + path + "dhh-aircraft");
 
             st.WriteLine("About to upload!!!!!!!!!");
             st.WriteLine("pause");
@@ -187,33 +190,16 @@ namespace wix
 <Wix xmlns=""http://schemas.microsoft.com/wix/2006/wi"" xmlns:netfx=""http://schemas.microsoft.com/wix/NetFxExtension"" xmlns:difx=""http://schemas.microsoft.com/wix/DifxAppExtension"" xmlns:iis='http://schemas.microsoft.com/wix/IIsExtension' >
 
 
-    <Product Id=""" + newid + @""" Name=""TitanPlanner"" Language=""1033"" Version=""" + version + @""" Manufacturer=""Michael Oborne"" UpgradeCode=""{DBDDCF07-1D02-4891-93DB-58B79CB92799}"">
+    <Product Id=""" + newid + @""" Name=""DHHPlanner"" Language=""1033"" Version=""" + version + @""" Manufacturer=""DHH RC Lab"" UpgradeCode=""{34FE0F3B-6280-41C0-99F9-4D88E2D6A84F}"">
 
-    <Package Description=""TitanPlanner Installer"" Comments=""TitanPlanner Installer"" Manufacturer=""Michael Oborne"" InstallerVersion=""200"" Compressed=""yes"" />
+    <Package Description=""DHHPlanner Installer"" Comments=""DHHPlanner Installer"" Manufacturer=""DHH RC Lab"" InstallerVersion=""200"" Compressed=""yes"" />
 
-    <Upgrade Id=""{DBDDCF07-1D02-4891-93DB-58B79CB92799}"">
+    <Upgrade Id=""{34FE0F3B-6280-41C0-99F9-4D88E2D6A84F}"">
         <UpgradeVersion OnlyDetect=""yes"" Minimum=""" + version + @""" Property=""NEWERVERSIONDETECTED"" IncludeMinimum=""no"" />
         <UpgradeVersion OnlyDetect=""no"" Minimum=""0.0.0"" Maximum=""" + version + @""" Property=""OLDERVERSIONBEINGUPGRADED"" IncludeMinimum=""yes"" IncludeMaximum=""yes"" />
     </Upgrade>
 
-    <!-- Older TitanPlanner installers used stock Mission Planner's upgrade code. Remove such an install only
-         when it is TitanPlanner: it ships TitanDynamics.mpsystheme, stock Mission Planner does not.
-         Otherwise KeepStockMissionPlanner empties the list so nothing is removed. -->
-    <Upgrade Id=""{625389D7-EB3C-4d77-A5F6-A285CF99437D}"">
-        <UpgradeVersion OnlyDetect=""no"" Minimum=""0.0.0"" IncludeMinimum=""yes"" Property=""OLDMISSIONPLANNERINSTALLFOUND"" />
-    </Upgrade>
-
-    <Property Id=""OLDTITANPLANNERTHEME"" Secure=""yes"">
-        <DirectorySearch Id=""OldMissionPlannerDir"" Path=""[ProgramFilesFolder]Mission Planner"" Depth=""0"">
-            <FileSearch Id=""OldTitanPlannerTheme"" Name=""TitanDynamics.mpsystheme"" />
-        </DirectorySearch>
-    </Property>
-
-    <!-- [NOOLDINSTALLTOREMOVE] is never set, so this sets the property to empty -->
-    <CustomAction Id=""KeepStockMissionPlanner"" Property=""OLDMISSIONPLANNERINSTALLFOUND"" Value=""[NOOLDINSTALLTOREMOVE]"" />
-
     <InstallExecuteSequence>
-        <Custom Action=""KeepStockMissionPlanner"" After=""FindRelatedProducts"">OLDMISSIONPLANNERINSTALLFOUND AND NOT OLDTITANPLANNERTHEME</Custom>
         <RemoveExistingProducts After=""InstallInitialize"" />
     </InstallExecuteSequence>
 
@@ -238,7 +224,7 @@ namespace wix
         </Directory>
 
         <Directory Id=""ProgramMenuFolder"">
-            <Directory Id=""ApplicationProgramsFolder"" Name=""TitanPlanner"" />
+            <Directory Id=""ApplicationProgramsFolder"" Name=""DHHPlanner"" />
         </Directory>
     </Directory>
 
@@ -293,9 +279,9 @@ namespace wix
 
     <DirectoryRef Id=""ApplicationProgramsFolder"">
         <Component Id=""ApplicationShortcut"" Guid=""*"">
-            <Shortcut Id=""ApplicationStartMenuShortcut10"" Name=""TitanPlanner"" Description=""TitanPlanner"" Target=""[INSTALLDIR]MissionPlanner.exe"" WorkingDirectory=""INSTALLDIR"" />
-            <Shortcut Id=""UninstallProduct"" Name=""Uninstall TitanPlanner"" Description=""Uninstalls TitanPlanner"" Target=""[System64Folder]msiexec.exe"" Arguments=""/x [ProductCode]"" />
-            <RegistryValue Root=""HKCU"" Key=""Software\MichaelOborne\TitanPlanner"" Name=""installed"" Type=""integer"" Value=""1"" KeyPath=""yes"" />
+            <Shortcut Id=""ApplicationStartMenuShortcut10"" Name=""DHHPlanner"" Description=""DHHPlanner"" Target=""[INSTALLDIR]MissionPlanner.exe"" WorkingDirectory=""INSTALLDIR"" />
+            <Shortcut Id=""UninstallProduct"" Name=""Uninstall DHHPlanner"" Description=""Uninstalls My Application"" Target=""[System64Folder]msiexec.exe"" Arguments=""/x [ProductCode]"" />
+            <RegistryValue Root=""HKCU"" Key=""Software\DHHRCLab\DHHPlanner"" Name=""installed"" Type=""integer"" Value=""1"" KeyPath=""yes"" />
 
             <RemoveFolder Id=""dltApplicationProgramsFolder"" Directory=""ApplicationProgramsFolder"" On=""uninstall"" />
 
@@ -304,7 +290,7 @@ namespace wix
     </DirectoryRef>
 
 
-    <Feature Id=""Complete"" Title=""TitanPlanner"" Level=""1"">
+    <Feature Id=""Complete"" Title=""DHHPlanner"" Level=""1"">
         <ComponentRef Id=""InstallDirPermissions"" />
 ";
             sw.WriteLine(data);
@@ -331,7 +317,7 @@ namespace wix
             Event=""DoAction"" 
             Value=""LaunchApplication"">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
     </UI>
-    <Property Id=""WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT"" Value=""Launch TitanPlanner"" />
+    <Property Id=""WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT"" Value=""Launch DHHPlanner"" />
 
     <!-- Step 3: Include the custom action -->
     <Property Id=""WixShellExecTarget"" Value=""[#" + mainexeid + @"]"" />
@@ -379,7 +365,7 @@ namespace wix
             foreach (string filepath in files)
             {
                 if (filepath.ToLower().EndsWith("release\\config.xml") || filepath.ToLower().StartsWith("joystick") ||
-                    filepath.ToLower().StartsWith("camera.xml") || filepath.ToLower().StartsWith("firmware.hex") || filepath.ToLower().EndsWith(".param") ||
+                    filepath.ToLower().StartsWith("camera.xml") || filepath.ToLower().StartsWith("firmware.hex") || (filepath.ToLower().EndsWith(".param") && !filepath.ToLower().Contains("dhh-aircraft")) ||
                     filepath.ToLower().EndsWith(".bin") || filepath.ToLower().EndsWith(".etag") || filepath.ToLower().EndsWith("parametermetadata.xml") ||
                     filepath.ToLower().EndsWith(".zip") || filepath.ToLower().EndsWith(".rlog") || filepath.ToLower().Contains("stats.xml") || filepath.ToLower().Contains("beta.bat"))
                     continue;
@@ -393,29 +379,29 @@ namespace wix
 
                     sw.WriteLine(tabs3 + "<File Id=\"" + mainexeid + "\" Source=\"" + filepath + "\" ><netfx:NativeImage Id=\"ngen_MissionPlannerexe\"/> </File>");
 
-                    sw.WriteLine(@"<ProgId Id='TitanPlanner.tlog' Description='Telemetry Log'>
+                    sw.WriteLine(@"<ProgId Id='DHHPlanner.tlog' Description='Telemetry Log'>
   <Extension Id='tlog' ContentType='application/tlog'>
      <Verb Id='open' Command='Open' TargetFile='" + mainexeid + @"' Argument='""%1""' />
   </Extension>
 </ProgId>
-<ProgId Id='TitanPlanner.dfbin' Description='Binary Log'>
+<ProgId Id='DHHPlanner.dfbin' Description='Binary Log'>
   <Extension Id='dfbin' ContentType='application/dflog'>
      <Verb Id='open' Command='Open' TargetFile='" + mainexeid + @"' Argument='""%1""' />
   </Extension>
 </ProgId>
-<ProgId Id='TitanPlanner.log' Description='DF Log'>
+<ProgId Id='DHHPlanner.log' Description='DF Log'>
   <Extension Id='log' ContentType='application/dflog'>
      <Verb Id='open' Command='Open' TargetFile='" + mainexeid + @"' Argument='""%1""' />
   </Extension>
 </ProgId>
- <RegistryValue Root=""HKCR"" Key=""TitanPlanner.tlog\shellex\{BB2E617C-0920-11D1-9A0B-00C04FC2D6C1}"" Value=""{f3b857f1-0b79-4e77-9d0b-8b8b7e874f56}"" Type=""string"" Action=""write"" />
- <RegistryValue Root=""HKCR"" Key=""TitanPlanner.tlog\shellex\{e357fccd-a995-4576-b01f-234630154e96}"" Value=""{f3b857f1-0b79-4e77-9d0b-8b8b7e874f56}"" Type=""string"" Action=""write"" />
+ <RegistryValue Root=""HKCR"" Key=""DHHPlanner.tlog\shellex\{BB2E617C-0920-11D1-9A0B-00C04FC2D6C1}"" Value=""{f3b857f1-0b79-4e77-9d0b-8b8b7e874f56}"" Type=""string"" Action=""write"" />
+ <RegistryValue Root=""HKCR"" Key=""DHHPlanner.tlog\shellex\{e357fccd-a995-4576-b01f-234630154e96}"" Value=""{f3b857f1-0b79-4e77-9d0b-8b8b7e874f56}"" Type=""string"" Action=""write"" />
 
- <RegistryValue Root=""HKCR"" Key=""TitanPlanner.dfbin\shellex\{BB2E617C-0920-11D1-9A0B-00C04FC2D6C1}"" Value=""{f3b857f1-0b79-4e77-9d0b-8b8b7e874f56}"" Type=""string"" Action=""write"" />
- <RegistryValue Root=""HKCR"" Key=""TitanPlanner.dfbin\shellex\{e357fccd-a995-4576-b01f-234630154e96}"" Value=""{f3b857f1-0b79-4e77-9d0b-8b8b7e874f56}"" Type=""string"" Action=""write"" />
+ <RegistryValue Root=""HKCR"" Key=""DHHPlanner.dfbin\shellex\{BB2E617C-0920-11D1-9A0B-00C04FC2D6C1}"" Value=""{f3b857f1-0b79-4e77-9d0b-8b8b7e874f56}"" Type=""string"" Action=""write"" />
+ <RegistryValue Root=""HKCR"" Key=""DHHPlanner.dfbin\shellex\{e357fccd-a995-4576-b01f-234630154e96}"" Value=""{f3b857f1-0b79-4e77-9d0b-8b8b7e874f56}"" Type=""string"" Action=""write"" />
 
- <RegistryValue Root=""HKCR"" Key=""TitanPlanner.log\shellex\{BB2E617C-0920-11D1-9A0B-00C04FC2D6C1}"" Value=""{f3b857f1-0b79-4e77-9d0b-8b8b7e874f56}"" Type=""string"" Action=""write"" />
- <RegistryValue Root=""HKCR"" Key=""TitanPlanner.log\shellex\{e357fccd-a995-4576-b01f-234630154e96}"" Value=""{f3b857f1-0b79-4e77-9d0b-8b8b7e874f56}"" Type=""string"" Action=""write"" />
+ <RegistryValue Root=""HKCR"" Key=""DHHPlanner.log\shellex\{BB2E617C-0920-11D1-9A0B-00C04FC2D6C1}"" Value=""{f3b857f1-0b79-4e77-9d0b-8b8b7e874f56}"" Type=""string"" Action=""write"" />
+ <RegistryValue Root=""HKCR"" Key=""DHHPlanner.log\shellex\{e357fccd-a995-4576-b01f-234630154e96}"" Value=""{f3b857f1-0b79-4e77-9d0b-8b8b7e874f56}"" Type=""string"" Action=""write"" />
 ");
 
                 }

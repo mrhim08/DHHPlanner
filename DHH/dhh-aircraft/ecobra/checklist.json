@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "title": "eCobra - Checklist truoc bay",
+  "items": [
+    { "id": "link",      "type": "auto",   "check": "connected",        "text": "Ket noi telemetry on dinh" },
+    { "id": "profile",   "type": "auto",   "check": "profileMatch",     "text": "Firmware ArduPlane, Q_ENABLE = 1" },
+    { "id": "params",    "type": "auto",   "check": "paramsMatchPreset","text": "Tham so khop preset eCobra" },
+    { "id": "gps",       "type": "auto",   "check": "gps",              "text": "GPS 3D fix, du so ve tinh, HDOP dat" },
+    { "id": "ekf",       "type": "auto",   "check": "ekf",              "text": "EKF on dinh" },
+    { "id": "battery",   "type": "auto",   "check": "battery",          "text": "Dien ap pin tren nguong canh bao" },
+    { "id": "airspeed",  "type": "auto",   "check": "airspeedStill",    "text": "Airspeed khi dung yen gan 0 (da che ong pitot de kiem tra)" },
+    { "id": "vibe",      "type": "auto",   "check": "vibe",             "text": "Rung dong duoi nguong" },
+    { "id": "prearm",    "type": "auto",   "check": "prearm",           "text": "Khong co loi PreArm" },
+    { "id": "wings",     "type": "manual", "text": "Canh va duoi da khoa chac, chot an toan da cai" },
+    { "id": "cg",        "type": "manual", "text": "Trong tam (CG) dung vi tri sau khi lap payload" },
+    { "id": "props",     "type": "manual", "text": "4 canh quat nang + canh quat day: khong nut, siet chat, dung chieu" },
+    { "id": "surfaces",  "type": "manual", "text": "Cac mat dieu khien di dung chieu khi lac tay" },
+    { "id": "pitot",     "type": "manual", "text": "Da thao nap ong pitot" },
+    { "id": "area",      "type": "manual", "text": "Khu vuc cat/ha canh trong, da xac dinh huong gio" },
+    { "id": "mission",   "type": "manual", "text": "Da tai va kiem tra mission (neu bay AUTO)" }
+  ]
+}

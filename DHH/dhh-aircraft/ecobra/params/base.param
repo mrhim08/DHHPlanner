@@ -1,0 +1,31 @@
+# eCobra - preset tham so QuadPlane (DRAFT)
+# CANH BAO: gia tri dien tam de chay SITL. Doi eCobra phai xac nhan truoc khi nap len may bay that.
+# Dinh dang: TEN,GIA_TRI   (dong bat dau bang # la chu thich)
+#
+# --- VTOL ---
+Q_ENABLE,1
+Q_FRAME_CLASS,1
+Q_FRAME_TYPE,1
+Q_ASSIST_SPEED,15
+Q_TRANSITION_MS,5000
+Q_RTL_MODE,1
+#
+# --- Bay bang (ten moi tu ArduPlane 4.5; GCS chap nhan ca ARSPD_FBW_MIN/MAX cu) ---
+AIRSPEED_MIN,16
+AIRSPEED_MAX,30
+#
+# --- Mode tren cong tac (ArduPlane: 5 FBWA, 7 CRUISE, 10 AUTO, 18 QHOVER, 19 QLOITER, 21 QRTL) ---
+FLTMODE1,19
+FLTMODE2,18
+FLTMODE3,5
+FLTMODE4,7
+FLTMODE5,10
+FLTMODE6,21
+#
+# --- Failsafe ---
+THR_FAILSAFE,1
+FS_SHORT_ACTN,0
+FS_LONG_ACTN,1
+FS_GCS_ENABL,1
+BATT_FS_LOW_ACT,1
+BATT_FS_CRT_ACT,1

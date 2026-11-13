@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "id": "ecobra",
+  "name": "eCobra",
+  "description": "VTOL QuadPlane, sai canh 2.6 m, AUW ~12 kg (payload 2 kg)",
+  "status": "DRAFT - gia tri chua duoc doi thiet ke xac nhan, KHONG dung de bay that",
+  "match": {
+    "firmware": "ArduPlane",
+    "requireParams": { "Q_ENABLE": 1 }
+  },
+  "paramPreset": "params/base.param",
+  "checklist": "checklist.json",
+  "operatorModes": [
+    { "mode": "QLOITER", "label": "Q LOITER", "group": "vtol" },
+    { "mode": "QHOVER",  "label": "Q HOVER",  "group": "vtol" },
+    { "mode": "QLAND",   "label": "Q LAND",   "group": "vtol", "confirm": true },
+    { "mode": "QRTL",    "label": "Q RTL",    "group": "vtol", "confirm": true },
+    { "mode": "FBWA",    "label": "FBWA",     "group": "fw" },
+    { "mode": "CRUISE",  "label": "CRUISE",   "group": "fw" },
+    { "mode": "AUTO",    "label": "AUTO",     "group": "fw", "confirm": true },
+    { "mode": "RTL",     "label": "RTL",      "group": "fw", "confirm": true }
+  ],
+  "limits": {
+    "airspeedMinParam": ["AIRSPEED_MIN", "ARSPD_FBW_MIN"],
+    "airspeedWarnMargin": 2.0,
+    "batteryCellCount": 12,
+    "batteryCellWarnV": 3.6,
+    "batteryCellCritV": 3.45,
+    "minSats": 10,
+    "maxHdop": 1.2,
+    "maxVibe": 30
+  }
+}

@@ -23,6 +23,9 @@
 
  <ItemGroup>
     <Compile Remove="APMPlannerXplanes\**" />
+    <Compile Remove="DHH\**" />
+    <None Remove="DHH\**" />
+    <EmbeddedResource Remove="DHH\**" />
     <Compile Remove="ExtLibs\7zip\**" />
     <Compile Remove="ExtLibs\alglibnet\**" />
     <Compile Remove="ExtLibs\Antenna\**" />
@@ -607,6 +610,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="BurntKermit.mpsystheme">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="DHH.mpsystheme">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="camerasBuiltin.xml">

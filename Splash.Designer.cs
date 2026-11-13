@@ -31,8 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Splash));
             this.label1 = new System.Windows.Forms.Label();
             this.TXT_version = new System.Windows.Forms.Label();
-            this.titanLogo = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.titanLogo)).BeginInit();
+            this.dhhLogo = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dhhLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -46,7 +46,7 @@
             this.label1.Size = new System.Drawing.Size(364, 17);
             this.label1.TabIndex = 0;
             this.label1.Tag = "custom";
-            this.label1.Text = "by Michael Oborne | Modified by Mohammad Adib";
+            this.label1.Text = "by Michael Oborne | DHH RC Lab edition, based on TitanPlanner";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // TXT_version
@@ -60,17 +60,17 @@
             this.TXT_version.Text = "Version: ";
             this.TXT_version.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // titanLogo
+            // dhhLogo
             // 
-            this.titanLogo.BackColor = System.Drawing.Color.Transparent;
-            this.titanLogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.titanLogo.Image = ((System.Drawing.Image)(resources.GetObject("titanLogo.Image")));
-            this.titanLogo.Location = new System.Drawing.Point(0, 0);
-            this.titanLogo.Name = "titanLogo";
-            this.titanLogo.Size = new System.Drawing.Size(660, 400);
-            this.titanLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.titanLogo.TabIndex = 2;
-            this.titanLogo.TabStop = false;
+            this.dhhLogo.BackColor = System.Drawing.Color.Transparent;
+            this.dhhLogo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dhhLogo.Image = ((System.Drawing.Image)(resources.GetObject("dhhLogo.Image")));
+            this.dhhLogo.Location = new System.Drawing.Point(0, 0);
+            this.dhhLogo.Name = "dhhLogo";
+            this.dhhLogo.Size = new System.Drawing.Size(660, 400);
+            this.dhhLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.dhhLogo.TabIndex = 2;
+            this.dhhLogo.TabStop = false;
             // 
             // Splash
             // 
@@ -80,7 +80,7 @@
             this.ControlBox = false;
             this.Controls.Add(this.TXT_version);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.titanLogo);
+            this.Controls.Add(this.dhhLogo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -90,7 +90,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Mission Planner";
             this.TopMost = true;
-            ((System.ComponentModel.ISupportInitialize)(this.titanLogo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dhhLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -100,6 +100,6 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label TXT_version;
-        private System.Windows.Forms.PictureBox titanLogo;
+        private System.Windows.Forms.PictureBox dhhLogo;
     }
 }

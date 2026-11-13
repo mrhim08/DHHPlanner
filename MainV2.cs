@@ -758,7 +758,7 @@ namespace MissionPlanner
                 if (File.Exists($"{running_directory}custom.mpsystheme"))
                     Settings.Instance["theme"] = "custom.mpsystheme";
                 else
-                    Settings.Instance["theme"] = "titandynamics.mpsystheme";
+                    Settings.Instance["theme"] = "DHH.mpsystheme";
             }
 
             ThemeManager.LoadTheme(Settings.Instance["theme"]);
@@ -5045,7 +5045,7 @@ namespace MissionPlanner
         {
             try
             {
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://titandynamics.aero") { UseShellExecute = true });
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://ardupilot.org/?utm_source=Menu&utm_campaign=MP") { UseShellExecute = true });
             }
             catch
             {

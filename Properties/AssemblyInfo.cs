@@ -4,12 +4,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TitanPlanner")]
-[assembly: AssemblyDescription("Developed with love by Mohammad Adib and Claude")]
+[assembly: AssemblyTitle("DHHPlanner")]
+[assembly: AssemblyDescription("DHHPlanner ground control station by DHH RC Lab, based on TitanPlanner and ArduPilot Mission Planner")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Michael Oborne & Mohammad Adib")]
-[assembly: AssemblyProduct("TitanPlanner")]
-[assembly: AssemblyCopyright("")]
+[assembly: AssemblyCompany("DHH RC Lab")]
+[assembly: AssemblyProduct("DHHPlanner")]
+[assembly: AssemblyCopyright("Copyright © 2010-2026 Michael Oborne and contributors")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

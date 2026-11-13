@@ -1,6 +1,45 @@
-# Mission Planner - Titan Dynamics Edition - Features
+# DHHPlanner - DHH RC Lab Edition - Features
 
-What this fork adds on top of upstream [ArduPilot/MissionPlanner](https://github.com/ArduPilot/MissionPlanner), by area. It describes how the fork behaves today, not the history of how it got there; for that, use the git log. (`ChangeLog.txt` is upstream's own log.)
+What DHHPlanner adds on top of [TitanPlanner](https://github.com/Titan-Dynamics/TitanPlanner), which is itself a fork of [ArduPilot/MissionPlanner](https://github.com/ArduPilot/MissionPlanner). TitanPlanner's own feature list follows in the "Inherited from TitanPlanner" section.
+It describes how the fork behaves today; for history, use the git log. (`ChangeLog.txt` is upstream's own log.)
+
+---
+
+# Branding
+
+## DHHPlanner identity
+Own application name, window and splash title, user data folder (`Documents\DHHPlanner`), log folder,
+installer (own MSI upgrade code, install folder, Start-menu entries, file associations) and
+self-update channel, so DHHPlanner installs and updates independently of stock Mission Planner and
+can sit beside it.
+
+## DHH theme
+`DHH.mpsystheme` is the default theme for new installs.
+
+---
+
+# DHH Panel
+
+A **DHH** tab in the Flight Data screen, driven by an aircraft profile:
+
+- **Aircraft profiles.** Each aircraft (first: eCobra VTOL QuadPlane) is a folder with its operator
+  modes, preflight checklist, warning limits and parameter preset. The profile matching the
+  connected vehicle is picked automatically; it can also be chosen by hand.
+- **VTOL status.** Multicopter / fixed-wing / transition state, landed state, mode, airspeed against
+  the minimum airspeed, low-airspeed and Q_ASSIST warnings.
+- **Operator mode buttons.** Large buttons for the profile's modes only; VTOL and fixed-wing modes in
+  different colours; risky changes ask for confirmation and the result is confirmed from telemetry.
+- **Preflight checklist.** Automatic checks (link, profile, parameters, GPS, EKF, battery, airspeed
+  sensor, vibration, PreArm) plus manual items. ARM is only available when everything passes;
+  manual ticks reset after every flight and on disconnect.
+- **Parameter check.** Compares the vehicle with the profile's preset, shows each difference and can
+  write the preset (never while armed) after listing every change.
+
+---
+
+# Inherited from TitanPlanner (Titan Dynamics)
+
+Everything below comes from [TitanPlanner](https://github.com/Titan-Dynamics/TitanPlanner) by Titan Dynamics (GPLv3), which DHHPlanner is based on; the text is theirs, kept as the record of what this UI includes. Where it mentions Titan branding, DHHPlanner uses its own (see Branding above).
 
 ---
 
@@ -348,7 +387,6 @@ Settings, logs, map tiles, offline maps, elevation data and caches live in `Prog
 - Logs tab combining Dataflash + Telemetry views
 - **Open Log Folder** button in the Log Downloader
 - **Copy** button on the error dialog: puts the error and the build version on the clipboard for pasting into a report
-- Custom upgrade-path logic so existing original Mission Planner users transition cleanly to the Titan Dynamics edition (theme, default tab visibility, settings migration)
 - No console window behind the main exe
 - The top menu highlights the screen being shown, including after SITL starts and on connect
 
@@ -356,7 +394,8 @@ Settings, logs, map tiles, offline maps, elevation data and caches live in `Prog
 
 # Upstream Base
 
-The fork tracks `upstream/master` and currently includes upstream as of 2026-10-25. Where the two conflict, the fork keeps its own UI (HUD layout, Actions tab, Motor Setup, Battery Monitor, Radio Calibration, themed tabs) and takes upstream's fixes. Upstream capabilities in this build that users may notice:
+DHHPlanner is based on TitanPlanner `development`, which merges ArduPilot/MissionPlanner `master` regularly (as of 2026-10-25 at the time of the rebase). What that brings in:
+TitanPlanner tracks `upstream/master` and currently includes upstream as of 2026-10-25. Where the two conflict, the fork keeps its own UI (HUD layout, Actions tab, Motor Setup, Battery Monitor, Radio Calibration, themed tabs) and takes upstream's fixes. Upstream capabilities in this build that users may notice:
 
 - 32-bit MAVLink system IDs everywhere (GCS id, vehicle lists, map markers)
 - Plugins can add actions to the Actions tab dropdown and draw on the HUD (`OnCustomPaint`)

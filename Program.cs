@@ -153,13 +153,13 @@ namespace MissionPlanner
             return string.Concat(filename.Split(Path.GetInvalidFileNameChars()));
         }
 
-        private static void HandleTDEditionUpgrade()
+        private static void HandleDhhEditionUpgrade()
         {
-            // Check for Titan Dynamics edition - if not set, this is a new install or upgrade from original Mission Planner
-            if (Settings.Instance["td_edition"] == null)
+            // Check for DHH edition - if not set, this is a new install (or first run of this UI generation)
+            if (Settings.Instance["dhh_edition"] == null)
             {
-                // Set Titan Dynamics default theme
-                Settings.Instance["theme"] = "titandynamics.mpsystheme";
+                // Set DHH default theme
+                Settings.Instance["theme"] = "DHH.mpsystheme";
 
                 // Show tabs by default
                 Settings.Instance["displayParamsTab"] = "true";
@@ -167,7 +167,7 @@ namespace MissionPlanner
                 Settings.Instance["displayTuningTab"] = "true";
                 Settings.Instance["displayInspectorTab"] = "true";
 
-                Settings.Instance["td_edition"] = "true";
+                Settings.Instance["dhh_edition"] = "true";
                 Settings.Instance.Save();
             }
         }
@@ -184,7 +184,7 @@ namespace MissionPlanner
 #endif
             // before anything reads Settings: bring settings over from the previous data folder
             DataFolderMigration.CopySettings();
-            HandleTDEditionUpgrade();
+            HandleDhhEditionUpgrade();
             Program.args = args;
             Console.WriteLine(
                 "If your error is about Microsoft.DirectX.DirectInput, please install the latest directx redist from here http://www.microsoft.com/en-us/download/details.aspx?id=35 \n\n");
@@ -268,7 +268,7 @@ namespace MissionPlanner
                 return;
             }
 
-            name = "TitanPlanner";
+            name = "DHHPlanner";
 
             try
             {
@@ -339,7 +339,7 @@ namespace MissionPlanner
                 if (File.Exists(Settings.GetRunningDirectory() + "custom.mpsystheme"))
                     Settings.Instance["theme"] = "custom.mpsystheme";
                 else
-                    Settings.Instance["theme"] = "titandynamics.mpsystheme";
+                    Settings.Instance["theme"] = "DHH.mpsystheme";
             }
             ThemeManager.LoadTheme(Settings.Instance["theme"]);
 

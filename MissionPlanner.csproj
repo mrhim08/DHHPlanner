@@ -6,9 +6,9 @@
     <StartupObject>MissionPlanner.Program</StartupObject>
     <Authors>Michael Oborne</Authors>
     <Version>1.3.83</Version>
-    <Company>Michael Oborne</Company>
-    <Product>Mission Planner</Product>
-    <Description>Mission Planner ground control station for ardupilot</Description>
+    <Company>DHH RC Lab</Company>
+    <Product>DHHPlanner</Product>
+    <Description>DHHPlanner ground control station by DHH RC Lab, based on TitanPlanner and ArduPilot Mission Planner</Description>
     <Copyright>Copyright © Michael Oborne 2010-2024</Copyright>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -709,6 +709,13 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="BurntKermit.mpsystheme">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DHH.mpsystheme">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DHH\dhh-aircraft\**">
+      <Link>$([System.String]::new('%(Identity)').Substring(4))</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Drivers\chibioscomp.cat">

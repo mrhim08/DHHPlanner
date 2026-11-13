@@ -17,14 +17,14 @@ namespace MissionPlanner.Utilities
     {
         static Settings _instance;
 
-        public static string AppConfigName { get; set; } = "TitanPlanner";
+        public static string AppConfigName { get; set; } = "DHHPlanner";
 
         /// <summary>
         /// Folder names this app's data may still be in, highest priority first. On first launch their settings
         /// and data are copied into the <see cref="AppConfigName"/> folders (see <see cref="DataFolderMigration"/>);
-        /// a file from an earlier name wins over the same file from a later one. Empty = nothing to migrate.
+        /// a file from an earlier name wins over the same file from a later one. Empty = nothing to migrate (DHHPlanner installs side by side with Mission Planner and does not import its settings).
         /// </summary>
-        public static string[] PreviousAppConfigNames { get; set; } = { "Mission Planner" };
+        public static string[] PreviousAppConfigNames { get; set; } = { };
 
         public static Settings Instance
         {

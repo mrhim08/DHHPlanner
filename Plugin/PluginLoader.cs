@@ -210,7 +210,12 @@ namespace MissionPlanner.Plugin
             log.Info("Plugin path: "+path);
 
             if (!Directory.Exists(path))
+            {
+                // DHHPlanner: built-in plugins (compiled into this exe) must load even without a plugins folder
+                InitPlugin(Assembly.GetAssembly(typeof(PluginLoader)), "self");
+                PluginInit();
                 return;
+            }
 
             // cs plugins are background compiled, and loaded in the ui thread
             Task.Run(() =>
